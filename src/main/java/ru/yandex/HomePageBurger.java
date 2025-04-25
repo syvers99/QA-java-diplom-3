@@ -3,7 +3,9 @@ package ru.yandex;
 import io.qameta.allure.Step;
 import org.hamcrest.MatcherAssert;
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
@@ -191,7 +193,7 @@ public class HomePageBurger {
     }
 
     @Step("кликнуть  по ингредиенту в меню Начинок")
-    public void waitForFillingAndClick() {
+    public void waitForFillingElmAndClick() {
         new WebDriverWait(driver, Duration.ofSeconds(8))
                 .until(ExpectedConditions.visibilityOfElementLocated(fillingElm)).click();
     }
@@ -207,13 +209,13 @@ public class HomePageBurger {
 
     }
     @Step("проверить карточку ингредиента меню Начинки")
-    public void checkFilling() {
+    public void checkFillingDetails() {
         String result = driver.findElement(details).getText();
         MatcherAssert.assertThat(result, containsString(DETAILS));
     }
 
     @Step("кликнуть  по ингредиенту в меню Соусы")
-    public void waitForSauceAndClick() {
+    public void waitForSauceElmAndClick() {
         new WebDriverWait(driver, Duration.ofSeconds(8))
                 .until(ExpectedConditions.visibilityOfElementLocated(sauceElm)).click();
     }
@@ -228,7 +230,7 @@ public class HomePageBurger {
                 .until(ExpectedConditions.elementToBeClickable(sauce)).click();
     }
     @Step("проверить карточку ингредиента в меню Соусы")
-    public void checkSauce() {
+    public void checkSauceDetails() {
         String result = driver.findElement(details).getText();
         MatcherAssert.assertThat(result, containsString(DETAILS));
     }
@@ -243,15 +245,41 @@ public class HomePageBurger {
                 .until(ExpectedConditions.elementToBeClickable(bun)).click();
     }
     @Step("проверить карточку ингредиента в меню Булки")
-    public void checkBun() {
+    public void checkBunDetails() {
         String result = driver.findElement(details).getText();
         MatcherAssert.assertThat(result, containsString(DETAILS));
     }
 
     @Step("кликнуть  по ингредиенту в меню Булки")
-    public void waitForBunAndClick() {
+    public void waitForBunElmAndClick() {
         new WebDriverWait(driver, Duration.ofSeconds(8))
                 .until(ExpectedConditions.visibilityOfElementLocated(bunElm)).click();
+    }
+
+    @Step("Подождать пока раздел Начинки станет current")
+    public void waitForFilling() {
+        WebElement myElement = driver.findElement(filling);
+        WebElement parent = (WebElement) ((JavascriptExecutor) driver).executeScript(
+                "return arguments[0].parentNode;", myElement);
+        new WebDriverWait(driver, Duration.ofSeconds(6))
+                .until(ExpectedConditions.attributeContains(parent, "class", "current"));
+    }
+
+    @Step("Подождать пока раздел Булки станет current")
+    public void waitForBun() {
+        WebElement myElement = driver.findElement(bun);
+        WebElement parent = (WebElement) ((JavascriptExecutor) driver).executeScript(
+                "return arguments[0].parentNode;", myElement);
+        new WebDriverWait(driver, Duration.ofSeconds(6))
+                .until(ExpectedConditions.attributeContains(parent, "class", "current"));
+    }
+    @Step("Подождать пока раздел Соусы станет current")
+    public void waitForSauce() {
+        WebElement myElement = driver.findElement(sauce);
+        WebElement parent = (WebElement) ((JavascriptExecutor) driver).executeScript(
+                "return arguments[0].parentNode;", myElement);
+        new WebDriverWait(driver, Duration.ofSeconds(6))
+                .until(ExpectedConditions.attributeContains(parent, "class", "current"));
     }
 
 }

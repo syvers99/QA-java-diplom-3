@@ -43,8 +43,9 @@ public class BurgerTest {
         burgerPage.waitForMakeOrderVisibilityAndCheckButton();
         burgerPage.chooseFilling();
         burgerPage.chooseBun();
-        burgerPage.waitForBunAndClick();
-        burgerPage.checkBun();
+        burgerPage.waitForBun();
+        burgerPage.waitForBunElmAndClick();
+        burgerPage.checkBunDetails();
 
     }
     @Test
@@ -57,8 +58,9 @@ public class BurgerTest {
         burgerPage.loginAccount(user);
         burgerPage.waitForMakeOrderVisibilityAndCheckButton();
         burgerPage.chooseFilling();
-        burgerPage.waitForFillingAndClick();
-        burgerPage.checkFilling();
+        burgerPage.waitForFilling();
+        burgerPage.waitForFillingElmAndClick();
+        burgerPage.checkFillingDetails();
 
     }
 
@@ -71,10 +73,10 @@ public class BurgerTest {
         burgerPage.waitForLoginVisibility();
         burgerPage.loginAccount(user);
         burgerPage.waitForMakeOrderVisibilityAndCheckButton();
-        burgerPage.chooseFilling();
         burgerPage.chooseSauce();
-        burgerPage.waitForSauceAndClick();
-        burgerPage.checkSauce();
+        burgerPage.waitForSauce();
+        burgerPage.waitForSauceElmAndClick();
+        burgerPage.checkSauceDetails();
 
     }
 
